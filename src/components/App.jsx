@@ -6,7 +6,9 @@ import { ContactList } from './ContactList/ContactList';
 import './App.css';
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
   const [filter, setFilter] = useState('');
   useEffect(() => {
     console.log('app');
