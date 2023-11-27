@@ -8,7 +8,11 @@ import './App.css';
 const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
-
+  useEffect(() => {
+    console.log('app');
+    console.log('Обновилось поле контакт');
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
   const handleFilter = event => {
     setFilter(event.target.value);
   };
@@ -32,22 +36,6 @@ const App = () => {
       { name, number, id: nanoid() },
     ]);
   };
-
-  useEffect(() => {
-    console.log('app');
-    const storedContacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(storedContacts);
-
-    if (parsedContacts) {
-      setContacts(parsedContacts);
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log('app');
-    console.log('Обновилось поле контакт');
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
